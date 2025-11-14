@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>International Items - Calculadora</title>
+
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #00c6ff, #0072ff);
+        color: white;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .container {
+        background: rgba(255, 255, 255, 0.18);
+        backdrop-filter: blur(10px);
+        padding: 25px;
+        border-radius: 20px;
+        width: 90%;
+        max-width: 420px;
+        margin: auto;
+        box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+        font-size: 26px;
+        margin-bottom: 5px;
+    }
+
+    h2 {
+        font-size: 18px;
+        margin-top: -5px;
+        opacity: 0.9;
+    }
+
+    label {
+        font-size: 18px;
+        display: block;
+        margin-top: 15px;
+    }
+
+    input {
+        width: 92%;
+        padding: 12px;
+        border-radius: 10px;
+        border: none;
+        margin-top: 8px;
+        font-size: 17px;
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+    button {
+        margin-top: 20px;
+        padding: 12px 25px;
+        font-size: 18px;
+        border: none;
+        border-radius: 12px;
+        background: #ffe066;
+        color: #333;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    button:hover {
+        background: #ffdf4d;
+    }
+
+    .resultado {
+        margin-top: 20px;
+        font-size: 22px;
+        font-weight: bold;
+        background: rgba(0,0,0,0.25);
+        padding: 15px;
+        border-radius: 12px;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📦 International Items</h1>
+    <h2>Calculadora de Envíos Cargo Expreso</h2>
+    <p><b>Creador: Brayan Raudales</b></p>
+
+    <label>💰 Costo del producto (Lps):</label>
+    <input type="number" inputmode="decimal" id="costo" placeholder="Ej: 549">
+
+    <label>🚚 Costo del envío Cargo Expreso (Lps):</label>
+    <input type="number" inputmode="decimal" id="envio" placeholder="100 normalmente si es Roatan 470">
+
+    <label>💵 Importe anticipado (Lps):</label>
+    <input type="number" inputmode="decimal" id="anticipo" placeholder="Ej: 140">
+
+    <button onclick="calcular()">Calcular</button>
+
+    <div id="resultado" class="resultado" style="display:none;"></div>
+</div>
+
+<script>
+function calcular() {
+    let costo = parseFloat(document.getElementById("costo").value) || 0;
+    let envio = parseFloat(document.getElementById("envio").value) || 0;
+    let anticipo = parseFloat(document.getElementById("anticipo").value) || 0;
+
+    // Total de compra = producto + envío
+    let totalCompra = costo + envio;
+
+    // Restante a pagar al recibir
+    let restante = totalCompra - anticipo;
+
+    if (restante < 0) restante = 0;
+
+    // Aplicar 5%
+    let totalRecibir = restante * 1.05;
+
+    // Redondear SIEMPRE hacia arriba
+    totalRecibir = Math.ceil(totalRecibir);
+
+    document.getElementById("resultado").style.display = "block";
+    document.getElementById("resultado").innerHTML =
+        `🧾 <b>Total de compra:</b> ${totalCompra} Lps<br><br>
+         💳 <b>Total a pagar al recibir del cliente:</b> 
+         <span style="color:#ffe066;">${totalRecibir} Lps</span>`;
+}
+</script>
+
+</body>
+</html>
